@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Navbar } from "../components/Navbar/Navbar";
+import ProfileAvatar from "@/components/Navbar/Avatar";
+import { ThemeProvider } from "@/components/theme-provider"
+import { ModeToggle } from "@/components/mode-toggle";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +20,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+
+          <div className="flex flex-col mt-3 ">
+            <div className=" flex justify-center items-center">
+              <Navbar />
+            </div>
+
+            <div className="flex mr-5 ml-auto -translate-y-7  gap-3">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4  rounded"> Sign in </button>
+              <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4  rounded"> Sign up </button>
+              <ProfileAvatar />
+              <ModeToggle />
+            </div>
+          </div>
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
