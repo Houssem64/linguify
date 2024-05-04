@@ -1,9 +1,12 @@
-import Image from "next/image";
-import Dashboard from "../components/Dashboard/Dashboard";
+import React from 'react';
+import LandingPage from '@/app/home/page';
+
+
 export default function Home() {
+
+
   return (
-    <>
-      <Dashboard />
-    </>
+    <LandingPage />
+
   );
 }
