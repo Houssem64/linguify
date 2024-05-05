@@ -14,17 +14,20 @@ export function GoogleSignInButton() {
     return (
         <Button className="w-full" variant="outline" onClick={handleClick}>
             <GoogleIcon className="mx-2" />
-            Sign in with Google
+            Continue with Google
         </Button>
     );
 }
 
 
 
+
+
 export function CredentialsSignInButton() {
     const handleClick = () => {
-        signIn();
+        signIn("credentials");
     };
+
 
     return (
         <div>

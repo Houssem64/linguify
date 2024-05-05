@@ -1,7 +1,7 @@
 
 
 import { NextAuthOptions, User, getServerSession } from "next-auth";
-
+import bcrypt from 'bcrypt';
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
@@ -22,17 +22,14 @@ export const authConfig: NextAuthOptions = {
                 password: { label: "Password", type: "password" },
             },
             async authorize(credentials) {
-                if (!credentials || !credentials.email || !credentials.password)
-                    return null;
+                if (!credentials || !credentials.email || !credentials.password) return null;
 
                 const dbUser = await prisma.user.findFirst({
                     where: { email: credentials.email },
                 });
 
-                //Verify Password here
-                //We are going to use a simple === operator
-                //In production DB, passwords should be encrypted using something like bcrypt...
-                if (dbUser && dbUser.password === credentials.password) {
+                // Verify Password with bcrypt
+                if (dbUser && await bcrypt.compare(credentials.password, dbUser.password)) {
                     const { password, createdAt, id, ...dbUserWithoutPassword } = dbUser;
                     return dbUserWithoutPassword as User;
                 }
@@ -46,5 +43,7 @@ export const authConfig: NextAuthOptions = {
         })
 
     ],
+
+
 };
 

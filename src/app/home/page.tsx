@@ -55,8 +55,8 @@ export default function LandingPage() {
                     </NavigationMenuList>
                 </NavigationMenu>
                 <div className="ml-auto flex gap-2 hidden lg:flex">
-                    <Button variant="outline">Sign In</Button>
-                    <Button>Sign Up</Button>
+                    <Button variant="outline"><Link href="/signin">Sign In</Link></Button>
+                    <Button><Link href="/signup">Sign Up</Link></Button>
                     <ModeToggle />
                 </div>
                 <Sheet>
@@ -153,10 +153,10 @@ export default function LandingPage() {
                             </div>
                             <div className="flex flex-col gap-2 min-[400px]:flex-row">
                                 <Button size="lg" variant="default">
-                                    Sign Up
+                                    <Link href="/signin">Sign Up</Link>
                                 </Button>
                                 <Button size="lg" variant="outline">
-                                    Sign In
+                                    <Link href="/signin">Sign In</Link>
                                 </Button>
                             </div>
                         </div>

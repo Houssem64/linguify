@@ -7,37 +7,85 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { CredentialsSignInButton } from "@/components/authButton";
+import React, { useState } from "react";
+import { ChangeEvent } from "react";
+
 
 import toast, { Toaster } from 'react-hot-toast';
+
+
 interface CredentialsFormProps {
     csrfToken?: string;
 }
 
-
-export default function CredentialsForm(props: CredentialsFormProps) {
-
+export default function CredentialsForm({ csrfToken }: CredentialsFormProps) {
     const router = useRouter();
+    /*     const router = useRouter();
+    
+        const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+            e.preventDefault();
+    
+            const data = new FormData(e.currentTarget);
+    
+            const email = data.get("email");
+            const password = data.get("password");
+    
+            // Optional: Add validation or assertion if email or password could be null
+            if (!email || !password) {
+                toast.error('Please enter both email and password.');
+                return;
+            }
+            const signInResponse = await signIn("credentials", {
+                redirect: false,
+                email: email.toString(), // Convert to string to ensure correct type
+                password: password.toString(),
+            });
+    
+    
+            if (signInResponse && !signInResponse.error) {
+                // redirect to dashboard
+                router.push("/dashboard");
+            } else {
+                toast.error('Credentials are invalid. Please try again.')
+    
+            }
+        };
+     */
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setEmail(e.target.value);
+    };
+
+    const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPassword(e.target.value);
+    };
+
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const data = new FormData(e.currentTarget);
+        // Optional: Add validation or assertion if email or password could be null
+        if (!email || !password) {
+            toast.error('Please enter both email and password.');
+            return;
+        }
 
         const signInResponse = await signIn("credentials", {
-            email: data.get("email"),
-            password: data.get("password"),
             redirect: false,
+            email,
+            password,
         });
 
-        if (signInResponse && !signInResponse.error) {
-            // redirect to dashboard
-            router.push("/dashboard");
+        if (signInResponse?.error) {
+            toast.error('Credentials are invalid. Please try again.');
         } else {
-            toast.error('Credentials are invalid. Please try again.')
-
+            // Assuming successful sign-in, redirect or perform other actions as needed
+            toast.success('Sign-in successful');
+            router.push("/dashboard");
+            // Redirect logic here, if applicable
         }
     };
-
 
     return (
         <form className="mt-8 space-y-6" onSubmit={handleSubmit} >
@@ -65,6 +113,8 @@ export default function CredentialsForm(props: CredentialsFormProps) {
                         name="email"
                         placeholder="you@example.com"
                         required
+                        onChange={handleEmailChange}
+                        value={email}
                         type="email"
                     />
                 </div>
@@ -75,7 +125,9 @@ export default function CredentialsForm(props: CredentialsFormProps) {
                         id="password"
                         name="password"
                         placeholder="Password"
+                        onChange={handlePasswordChange}
                         required
+                        value={password}
                         type="password"
                     />
                 </div>
@@ -96,12 +148,12 @@ export default function CredentialsForm(props: CredentialsFormProps) {
                     </Link>
                 </div>
             </div>
-            {/*             <div>
+            <div>
                 <Button className="w-full" type="submit" >
                     Sign in
                 </Button>
-            </div> */}
-            <CredentialsSignInButton />
+            </div>
+            {/* <CredentialsSignInButton /> */}
             {/*             <div className="flex flex-col gap-2">
                 <GoogleSignInButton />
             </div> */}

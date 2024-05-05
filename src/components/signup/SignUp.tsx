@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import { Toaster } from 'react-hot-toast';
 import Toast from 'react-hot-toast';
+import SignUpForm from "@/components/CredentialsForm/SignUpForm";
 
 export default function SignUp() {
 
@@ -58,7 +59,8 @@ export default function SignUp() {
                             </Link>
                         </p>
                     </div>
-                    <form className="mt-8 space-y-6">
+                    <SignUpForm />
+                    {/*                     <form className="mt-8 space-y-6">
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
                                 <Label htmlFor="email">Email address</Label>
@@ -110,32 +112,10 @@ export default function SignUp() {
                                 Continue with Google
                             </Button>
                         </div>
-                    </form>
+                    </form> */}
                 </div>
             </div>
         </div>
     );
 }
 
-function ChromeIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <circle cx="12" cy="12" r="10" />
-            <circle cx="12" cy="12" r="4" />
-            <line x1="21.17" x2="12" y1="8" y2="8" />
-            <line x1="3.95" x2="8.54" y1="6.06" y2="14" />
-            <line x1="10.88" x2="15.46" y1="21.94" y2="14" />
-        </svg>
-    );
-}
