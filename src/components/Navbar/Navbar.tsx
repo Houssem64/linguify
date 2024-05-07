@@ -26,7 +26,7 @@ const navItems = [
 
 ]
 
-export function Navbar() {
+export default function Navbar() {
 
     return (
         <>
