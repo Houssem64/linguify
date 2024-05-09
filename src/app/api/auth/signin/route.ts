@@ -1,4 +1,4 @@
-/* import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 import bcrypt from 'bcrypt';
 import type { NextApiRequest, NextApiResponse } from 'next';
 
@@ -31,8 +31,8 @@ export default async function handler(
         // Handle error here
         res.status(500).json({ message: 'An error occurred' });
     }
-} */
-
+}
+/* 
 // pages/api/auth/signin.ts
 import { NextResponse } from 'next/server';
 import prisma from '../../../lib/prisma'; // Adjust the import path according to your setup
@@ -63,4 +63,4 @@ export async function POST(req: Request) {
         console.error(error);
         return NextResponse.json({ message: 'An error occurred' }, { status: 500 });
     }
-}
+} */
