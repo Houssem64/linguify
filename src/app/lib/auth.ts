@@ -5,9 +5,11 @@ import bcrypt from 'bcrypt';
 
 import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-
+import React from "react";
 
 import prisma from "./prisma";
+
+
 
 export const authConfig: NextAuthOptions = {
     providers: [
@@ -40,6 +42,15 @@ export const authConfig: NextAuthOptions = {
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+            profile(profile) {
+                return {
+                    id: profile.sub,
+                    name: profile.name,
+                    email: profile.email,
+                    image: profile.picture,
+                    given_name: profile.given_name,
+                };
+            },
         })
 
     ],

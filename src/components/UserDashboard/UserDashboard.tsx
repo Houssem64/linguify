@@ -4,6 +4,12 @@ import Navbar from '../Navbar/Navbar';
 import Sidebar from '../Sidebar/Sidebar';
 import UserHome from './UserHome';
 import Dashboard from '../Dashboard/Dashboard';
+import { Skeleton } from '@mui/material';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { SessionProvider } from 'next-auth/react';
+import ApplyButton from './ApplyButton';
+import Settings from '../Settings/Settings';
 
 
 
@@ -20,13 +26,21 @@ const UserDashboard = () => {
 
                 </div> */}
                 {activeLink === 'Home' ? (
-                    <UserHome />
+                    <div className='justify-center items-center text-center' >
+
+                        <div className="bg-gray-600 opacity-10 z-1">
+                            <SessionProvider >
+                                <UserHome />
+                            </SessionProvider>
+                        </div>
+                        <ApplyButton />
+                    </div>
                 ) : activeLink === 'Tasks' ? (
                     <div>Tasks</div>
                 ) : activeLink === 'MyTasks' ? (
                     <Dashboard />
                 ) : activeLink === 'Settings' ? (
-                    <div>Settings</div>) : null}
+                    <SessionProvider ><Settings /></SessionProvider>) : null}
             </div>
         </div>
 

@@ -4,112 +4,58 @@ import { Button } from "@/components/ui/button"
 import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
 import ProfileAvatar from "@/components/Navbar/Avatar"
 import { useState } from "react";
+import LockIcon from '@mui/icons-material/Lock';
 import { Dispatch, SetStateAction } from "react";
 interface SidebarProps {
     activeLink: string;
     setActiveLink: Dispatch<SetStateAction<string>>;
 }
+import { SessionProvider } from 'next-auth/react'
 
 export default function Sidebar({ activeLink, setActiveLink }: SidebarProps) {
     return (
-        <div className="flex h-[100vh] w-full">
-            <aside className="hidden w-64 shrink-0 border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950 lg:block">
-                <div className="flex justify-start items-start">
-                    <ProfileAvatar />
-                </div>
-                <nav className="mt-8 space-y-2">
-                    <Link
-                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                        href="#"
-                        onClick={() => setActiveLink('Home')}
-                    >
-                        <HomeIcon className="h-4 w-4" />
-                        Home
-                    </Link>
-                    <Link
-                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                        href="#" onClick={() => setActiveLink('Tasks')}
-                    >
-                        <LayoutDashboardIcon className="h-4 w-4" />
-                        Dashboard
-                    </Link>
-                    <Link
-                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                        href="#" onClick={() => setActiveLink('MyTasks')}
-                    >
-                        <PackageIcon className="h-4 w-4" />
-                        My Tasks
-                    </Link>
+        <div className="flex h-full w-full">
+            <SessionProvider>
+                <aside className=" w-72 shrink-0 border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950 lg:block">
+                    <div className="flex justify-start items-start">
+                        <ProfileAvatar />
+                        {/*  <Link href="/api/auth/signout?callbackUrl=/" className="bg-transparent border-2 border-gray-500  hover:bg-gray-700 text-white font-bold text-sm py-2 px-2 gap-2 ml-auto mr-0 rounded-lg"> Sign out </Link> */}
+                    </div>
+                    <nav className="mt-8 space-y-2">
+                        <Link
+                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                            href="#"
+                            onClick={() => setActiveLink('Home')}
+                        >
+                            <HomeIcon className="h-4 w-4" />
+                            Home
+                        </Link>
+                        <Link
+                            className="flex cursor-not-allowed  items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                            href="#" /* onClick={() => setActiveLink('Tasks')} */
+                        >
+                            <LayoutDashboardIcon className="h-4 w-4" />
+                            Jobs <span className="mr-0 ml-auto" ><LockIcon className="h-4  " /></span>
+                        </Link>
+                        <Link
+                            className="flex cursor-not-allowed items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                            href="#" /* onClick={() => setActiveLink('MyTasks')} */
+                        >
+                            <PackageIcon className="h-4 w-4" />
+                            My Tasks <span className="mr-0 ml-auto" ><LockIcon className="h-4  " /></span>
+                        </Link>
 
-                    <Link
-                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                        href="#" onClick={() => setActiveLink('Settings')}
-                    >
-                        <SettingsIcon className="h-4 w-4" />
-                        Settings
-                    </Link>
-                </nav>
-            </aside>
-            <div className="flex flex-1 flex-col">
-                <header className="flex h-14 items-center justify-between border-b bg-white px-4 dark:border-gray-800 dark:bg-gray-950 lg:hidden">
-                    <Link className="flex items-center gap-2" href="#">
-                        <MountainIcon className="h-6 w-6" />
-                        <span className="sr-only">Acme Inc</span>
-                    </Link>
-                    <Sheet>
-                        <SheetTrigger asChild>
-                            <Button className="rounded-full" size="icon" variant="outline">
-                                <MenuIcon className="h-6 w-6" />
-                                <span className="sr-only">Toggle navigation</span>
-                            </Button>
-                        </SheetTrigger>
-                        <SheetContent className="w-64 border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950" side="left">
-                            <div className="flex items-center gap-2">
-                                <MountainIcon className="h-6 w-6" />
-                                <span className="text-xl font-semibold">Acme Inc</span>
-                            </div>
-                            <nav className="mt-8 space-y-2">
-                                <Link
-                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                                    href="#"
-                                >
-                                    <HomeIcon className="h-4 w-4" />
-                                    Home
-                                </Link>
-                                <Link
-                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                                    href="#"
-                                >
-                                    <LayoutDashboardIcon className="h-4 w-4" />
-                                    Dashboard
-                                </Link>
-                                <Link
-                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                                    href="#"
-                                >
-                                    <PackageIcon className="h-4 w-4" />
-                                    Products
-                                </Link>
-                                <Link
-                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                                    href="#"
-                                >
-                                    <UsersIcon className="h-4 w-4" />
-                                    Customers
-                                </Link>
-                                <Link
-                                    className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                                    href="#"
-                                >
-                                    <SettingsIcon className="h-4 w-4" />
-                                    Settings
-                                </Link>
-                            </nav>
-                        </SheetContent>
-                    </Sheet>
-                </header>
-                <main className="flex-1 p-6" />
-            </div>
+                        <Link
+                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                            href="#" onClick={() => setActiveLink('Settings')}
+                        >
+                            <SettingsIcon className="h-4 w-4" />
+                            Settings
+                        </Link>
+                    </nav>
+                </aside>
+
+            </SessionProvider>
         </div>
     )
 }
