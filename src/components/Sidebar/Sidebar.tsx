@@ -5,12 +5,13 @@ import { SheetTrigger, SheetContent, Sheet } from "@/components/ui/sheet"
 import ProfileAvatar from "@/components/Navbar/Avatar"
 import { useState } from "react";
 import LockIcon from '@mui/icons-material/Lock';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Dispatch, SetStateAction } from "react";
 interface SidebarProps {
     activeLink: string;
     setActiveLink: Dispatch<SetStateAction<string>>;
 }
-import { SessionProvider } from 'next-auth/react'
+import { SessionProvider, signOut } from 'next-auth/react'
 
 export default function Sidebar({ activeLink, setActiveLink }: SidebarProps) {
     return (
@@ -51,6 +52,15 @@ export default function Sidebar({ activeLink, setActiveLink }: SidebarProps) {
                         >
                             <SettingsIcon className="h-4 w-4" />
                             Settings
+                        </Link>
+                        <Link
+                            className="flex  items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                            /* href="/api/auth/signout?callbackUrl=/"  */ /* onClick={() => setActiveLink('MyTasks')} */
+                            href={"#"}
+                            onClick={() => signOut({ callbackUrl: '/', redirect: true })}
+                        >
+                            <ExitToAppIcon className="h-4 w-4" />
+                            Logout
                         </Link>
                     </nav>
                 </aside>
