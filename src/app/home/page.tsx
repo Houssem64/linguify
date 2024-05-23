@@ -153,7 +153,7 @@ export default function LandingPage() {
                             </div>
                             <div className="flex flex-col gap-2 min-[400px]:flex-row">
                                 <Button size="lg" variant="default">
-                                    <Link href="/signin">Sign Up</Link>
+                                    <Link href="/signup">Sign Up</Link>
                                 </Button>
                                 <Button size="lg" variant="outline">
                                     <Link href="/signin">Sign In</Link>
