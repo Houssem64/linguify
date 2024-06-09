@@ -10,6 +10,7 @@ import {
 
     GoogleSignInButton,
 } from "@/components/authButton";
+import { Toaster } from "react-hot-toast";
 export default async function SignIn() {
     const session = await getServerSession(authConfig);
     console.log(session, session);
@@ -20,7 +21,21 @@ export default async function SignIn() {
     return (
 
         <div className="grid min-h-screen grid-cols-1 bg-black lg:grid-cols-2">
+            <Toaster toastOptions={{
+                className: '',
+                style: {
+                    border: 'px solid white',
+                    boxShadow: '0 0 10px white',
+                    padding: '16px',
+                    color: 'white',
+                    background: 'black',
 
+                },
+                iconTheme: {
+                    primary: 'white',
+                    secondary: 'black',
+                },
+            }} />
             <div className="relative hidden bg-gray-900 lg:block">
                 <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-800 opacity-90" />
                 <div className="relative z-10 flex h-full items-center justify-center px-12">
@@ -42,8 +57,7 @@ export default async function SignIn() {
                             Sign in to your account
                         </h2>
                         <p className="mt-2 text-center text-sm text-white">
-                            Don't have an account?
-
+                            Don't have an account? <a href="/signup" className="text-blue-500">Sign up</a>
                         </p>
                     </div>
                     <CredentialsForm />

@@ -53,7 +53,7 @@ export default function SignUp() {
                             Already have an account?{" "}
                             <Link
                                 className="font-medium text-indigo-600 hover:text-indigo-500"
-                                href="#"
+                                href="/signin"
                             >
                                 Sign in
                             </Link>

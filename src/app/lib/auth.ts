@@ -33,7 +33,7 @@ export const authConfig: NextAuthOptions = {
                 // Verify Password with bcrypt
                 if (dbUser && await bcrypt.compare(credentials.password, dbUser.password)) {
                     const { password, createdAt, id, ...dbUserWithoutPassword } = dbUser;
-                    return dbUserWithoutPassword as User;
+                    return { id: dbUser.id, dbUserWithoutPassword } as User;
                 }
 
                 return null;
@@ -49,13 +49,27 @@ export const authConfig: NextAuthOptions = {
                     email: profile.email,
                     image: profile.picture,
                     given_name: profile.given_name,
+
                 };
             },
         })
 
+
     ],
 
 
+    /*  callbacks: {
+         async session({ session, user }) {
+             const userFromDb = await prisma.user.findUnique({
+                 where: { id: user.id },
+             });
+             if (userFromDb) {
+                 session.user.id = userFromDb.id;
+                 session.user.verified = userFromDb.verified; // Include verified field
+             }
+             return session;
+         },
+     }, */
 
 
 };

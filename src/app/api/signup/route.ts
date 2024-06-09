@@ -9,7 +9,7 @@ export async function POST(req: Request) {
         const userData = body;
 
 
-        if (!userData?.email || !userData?.password || !userData?.name) {
+        if (!userData?.email || !userData?.password || !userData?.name || !userData?.phoneNumber) {
             console.error('Missing required fields');
         }
 

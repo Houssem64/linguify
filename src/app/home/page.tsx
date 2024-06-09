@@ -9,6 +9,7 @@ import { AvatarImage, AvatarFallback, Avatar } from "@/components/ui/avatar"
 import { CardContent, Card } from "@/components/ui/card"
 import { ModeToggle } from "@/components/mode-toggle";
 import Footer from "@/components/Footer/Footer";
+import Navbar from "@/components/Navbar/Navbar";
 
 export default function LandingPage() {
     return (
@@ -18,11 +19,11 @@ export default function LandingPage() {
                     <LanguagesIcon className="h-6 w-6" />
                     <span className="text-xl font-bold">Linguify</span>
                 </Link>
-                <NavigationMenu className="ml-auto hidden lg:flex">
+                {/*       <NavigationMenu className="ml-auto hidden lg:flex">
                     <NavigationMenuList>
                         <NavigationMenuLink asChild>
                             <Link
-                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                                className="group inline-flex h-9 w-max items-center justify-center rounded-md  px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50  dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
                                 href="#"
                             >
                                 Features
@@ -30,7 +31,7 @@ export default function LandingPage() {
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
                             <Link
-                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
                                 href="#"
                             >
                                 How It Works
@@ -38,7 +39,7 @@ export default function LandingPage() {
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
                             <Link
-                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
                                 href="#"
                             >
                                 Testimonials
@@ -46,20 +47,24 @@ export default function LandingPage() {
                         </NavigationMenuLink>
                         <NavigationMenuLink asChild>
                             <Link
-                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
+                                className="group inline-flex h-9 w-max items-center justify-center rounded-md bg-white px-4 py-2 text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none disabled:pointer-events-none disabled:opacity-50 data-[active]:bg-gray-100/50 data-[state=open]:bg-gray-100/50 dark:bg-gray-600 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50 dark:data-[active]:bg-gray-800/50 dark:data-[state=open]:bg-gray-800/50"
                                 href="#"
                             >
                                 Contact
                             </Link>
                         </NavigationMenuLink>
                     </NavigationMenuList>
+                </NavigationMenu> */}
+                <NavigationMenu className="ml-auto hidden lg:flex">
+
+                    <Navbar />
                 </NavigationMenu>
-                <div className="ml-auto flex gap-2 hidden lg:flex">
+                <div className="ml-auto  gap-2 hidden lg:flex">
                     <Button variant="outline"><Link href="/signin">Sign In</Link></Button>
                     <Button><Link href="/signup">Sign Up</Link></Button>
                     <ModeToggle />
                 </div>
-                <Sheet>
+        {/*         <Sheet>
                     <SheetTrigger asChild>
                         <Button className="ml-auto lg:hidden" size="icon" variant="outline">
                             <MenuIcon className="h-6 w-6" />
@@ -136,7 +141,7 @@ export default function LandingPage() {
                             </NavigationMenuLink>
                         </div>
                     </SheetContent>
-                </Sheet>
+                </Sheet> */}
             </header>
             <main className="flex-1">
                 <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">

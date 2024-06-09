@@ -14,6 +14,7 @@ interface FormData {
     name?: string;
     email?: string;
     password?: string;
+    phoneNumber?: string;
     // Add other form fields as needed
 }
 
@@ -118,6 +119,19 @@ const SignUpForm = () => {
                     type="password"
                     onChange={handleChange}
                     value={formData.password}
+                />
+            </div>
+            <div>
+                <Label htmlFor="phoneNumber">Phone Number</Label>
+                <Input
+                    autoComplete="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    placeholder="Phone Number"
+                    required
+                    type="tel"
+                    onChange={handleChange}
+                    value={formData.phoneNumber}
                 />
             </div>
         </div>

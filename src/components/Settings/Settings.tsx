@@ -7,15 +7,26 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { Switch } from "@/components/ui/switch"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+
+
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import { SessionProvider, useSession } from "next-auth/react"
+
 import { motion } from "framer-motion"
+import toast from "react-hot-toast"
+import Image from "next/image"
+import PaymentForm from "./PaymentForm";
 
 export default function Component() {
 
     const { data: session, status } = useSession();
-
+    function toastError(e: any) {
+        e.preventDefault();
+        toast.error("failed to submit form");
+    }
 
     return (
         <motion.main className="flex flex-col gap-8 p-6 md:p-10" initial={{
@@ -53,6 +64,68 @@ export default function Component() {
                     <CardFooter>
                         <Button>Save Changes</Button>
                     </CardFooter>
+                </Card>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Withdraw</CardTitle>
+                        <CardDescription>Choose your preferred Withdraw method.</CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <AccountBalanceIcon className="h-5 w-5" />
+                                <div>
+                                    <p className="font-medium">IBAN</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Withdraw to your bank account</p>
+                                </div>
+                            </div>
+                            <RadioGroup defaultValue="iban">
+                                <RadioGroupItem className="peer sr-only" id="iban" value="iban" />
+                                <Label
+                                    className="cursor-pointer rounded-md border-2 border-gray-100 bg-white p-2 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                                    htmlFor="iban"
+                                >
+                                    <BanknoteIcon className="h-5 w-5" />
+                                </Label>
+                            </RadioGroup>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <Image src="/wise.png" width={24} height={24} alt="D17" />
+                                <div>
+                                    <p className="font-medium">Wise</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Withdraw using Wise account</p>
+                                </div>
+                            </div>
+                            <RadioGroup defaultValue="stripe">
+                                <RadioGroupItem className="peer sr-only" id="stripe" value="stripe" />
+                                <Label
+                                    className="cursor-pointer rounded-md border-2 border-gray-100 bg-white p-2 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                                    htmlFor="stripe"
+                                >
+                                    <CreditCardIcon className="h-5 w-5" />
+                                </Label>
+                            </RadioGroup>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-4">
+                                <Image src="/d17.png" width={24} height={24} alt="D17" />
+                                <div>
+                                    <p className="font-medium">D17</p>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400">Withdraw to your E-dinar Wallet</p>
+                                </div>
+                            </div>
+                            <RadioGroup defaultValue="d17">
+                                <RadioGroupItem className="peer sr-only" id="d17" value="d17" />
+                                <Label
+                                    className="cursor-pointer rounded-md border-2 border-gray-100 bg-white p-2 hover:bg-gray-100 hover:text-gray-900 peer-data-[state=checked]:border-gray-900 [&:has([data-state=checked])]:border-gray-900 dark:border-gray-800 dark:bg-gray-950 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:peer-data-[state=checked]:border-gray-50 dark:[&:has([data-state=checked])]:border-gray-50"
+                                    htmlFor="d17"
+                                >
+                                    <DollarSignIcon className="h-5 w-5" />
+                                </Label>
+                            </RadioGroup>
+                        </div>
+                    </CardContent>
                 </Card>
                 <Card>
                     <CardHeader>
@@ -109,6 +182,16 @@ export default function Component() {
                             </div>
                             <Switch id="private-activity" />
                         </div>
+                    </CardContent>
+                </Card>
+                <Card>
+
+                    <CardHeader>
+                        <CardTitle>Activate Your Account</CardTitle>
+                        <CardDescription> Choose your preferred payment method </CardDescription>
+                    </CardHeader>
+                    <CardContent className="grid gap-4">
+                        <PaymentForm />
                     </CardContent>
                 </Card>
 
@@ -202,6 +285,46 @@ function LockIcon(props: React.SVGProps<SVGSVGElement>) {
     )
 }
 
+function DollarSignIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <line x1="12" x2="12" y1="2" y2="22" />
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+        </svg>
+    )
+}
+
+function CreditCardIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <rect width="20" height="14" x="2" y="5" rx="2" />
+            <line x1="2" x2="22" y1="10" y2="10" />
+        </svg>
+    )
+}
+
 
 function MoonIcon(props: React.SVGProps<SVGSVGElement>) {
     return (
@@ -264,3 +387,24 @@ function UserIcon(props: React.SVGProps<SVGSVGElement>) {
         </svg>
     )
 }
+function BanknoteIcon(props: React.SVGProps<SVGSVGElement>) {
+    return (
+        <svg
+            {...props}
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        >
+            <rect width="20" height="12" x="2" y="6" rx="2" />
+            <circle cx="12" cy="12" r="2" />
+            <path d="M6 12h.01M18 12h.01" />
+        </svg>
+    )
+}
+

@@ -16,6 +16,22 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
+  phoneNumber String
+  // cin String 
+  // iban String
+  // edinar String
+  // verified Boolean @default(false)
+  
+}
+model Payment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  cvv     String
+  cardNumber     String
+  email    String
+  expirationMonth String
+  expirationYear String
+  createdAt DateTime @default(now())
   
 }
 
