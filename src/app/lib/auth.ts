@@ -1,76 +1,71 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import NextAuth, { type NextAuthOptions } from "next-auth";
 
-
-import { NextAuthOptions, User, getServerSession } from "next-auth";
-import bcrypt from 'bcrypt';
-
-import CredentialsProvider from "next-auth/providers/credentials";
 import GoogleProvider from "next-auth/providers/google";
-import React from "react";
+import CredentialsProvider from "next-auth/providers/credentials";
+import bcrypt from "bcrypt";
 
-import prisma from "./prisma";
+import prisma from "../lib/prisma";
 
 
-
-export const authConfig: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
+    adapter: PrismaAdapter(prisma),
     providers: [
-        CredentialsProvider({
-            name: "Sign in",
-            credentials: {
-                email: {
-                    label: "Email",
-                    type: "email",
-                    placeholder: "example@example.com",
-                },
-                password: { label: "Password", type: "password" },
-            },
-            async authorize(credentials) {
-                if (!credentials || !credentials.email || !credentials.password) return null;
-
-                const dbUser = await prisma.user.findFirst({
-                    where: { email: credentials.email },
-                });
-
-                // Verify Password with bcrypt
-                if (dbUser && await bcrypt.compare(credentials.password, dbUser.password)) {
-                    const { password, createdAt, id, ...dbUserWithoutPassword } = dbUser;
-                    return { id: dbUser.id, dbUserWithoutPassword } as User;
-                }
-
-                return null;
-            },
-        }),
         GoogleProvider({
             clientId: process.env.GOOGLE_CLIENT_ID as string,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-            profile(profile) {
-                return {
-                    id: profile.sub,
-                    name: profile.name,
-                    email: profile.email,
-                    image: profile.picture,
-                    given_name: profile.given_name,
 
-                };
+
+        }),
+        CredentialsProvider({
+            name: 'credentials',
+            credentials: {
+                email: { label: 'email', type: 'text' },
+                password: { label: 'password', type: 'password' },
             },
+            async authorize(credentials) {
+                if (!credentials?.email || !credentials?.password) {
+                    throw new Error('Invalid credentials');
+                }
+
+                const user = await prisma.user.findUnique({
+                    where: { email: credentials.email }
+                });
+                if (!user || !user?.hashedPassword) {
+                    throw new Error('Invalid credentials');
+                }
+
+                const isCorrectPassword = await bcrypt.compare(credentials.password, user.hashedPassword);
+
+                if (!isCorrectPassword) {
+                    throw new Error('Invalid credentials');
+                }
+                return user;
+
+            }
         })
-
-
     ],
+    callbacks: {
+        async redirect({ url, baseUrl }) {
+            // Allows relative callback URLs
+            if (url.startsWith("/")) return `${baseUrl}${url}`
+            // Allows callback URLs on the same origin
+            else if (new URL(url).origin === baseUrl) return url
+            return baseUrl
+        }
+    },
+    pages: {
+        signIn: '/',
 
-
-    /*  callbacks: {
-         async session({ session, user }) {
-             const userFromDb = await prisma.user.findUnique({
-                 where: { id: user.id },
-             });
-             if (userFromDb) {
-                 session.user.id = userFromDb.id;
-                 session.user.verified = userFromDb.verified; // Include verified field
-             }
-             return session;
-         },
-     }, */
-
+    },
+    debug: process.env.NODE_ENV !== 'development',
+    session: {
+        strategy: 'jwt',
+    },
+    secret: process.env.NEXTAUTH_SECRET,
 
 };
+
+export default NextAuth(authOptions);
+
 

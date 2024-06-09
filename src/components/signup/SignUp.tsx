@@ -8,8 +8,47 @@ import { Button } from "@/components/ui/button";
 import { Toaster } from 'react-hot-toast';
 import Toast from 'react-hot-toast';
 import SignUpForm from "@/components/CredentialsForm/SignUpForm";
+import { GoogleSignInButton } from "@/components/authButton";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { useState } from "react";
+import axios from "axios";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 
 export default function SignUp() {
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+
+
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FieldValues>({
+        defaultValues: {
+            name: '',
+            email: '',
+            password: '',
+        },
+    });
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        setIsLoading(true);
+        axios.post('/api/register', data)
+            .then(() => {
+                toast.success('Account created successfully')
+
+            })
+            .catch((error) => {
+                toast.error('Something went wrong')
+            })
+            .finally(() => {
+                setIsLoading(false);
+                router.push('/signin')
+            });
+
+    }
 
     return (
 
@@ -59,7 +98,7 @@ export default function SignUp() {
                             </Link>
                         </p>
                     </div>
-                    <SignUpForm />
+                    {/*   <SignUpForm /> */}
                     {/*                     <form className="mt-8 space-y-6">
                         <div className="-space-y-px rounded-md shadow-sm">
                             <div>
@@ -113,6 +152,94 @@ export default function SignUp() {
                             </Button>
                         </div>
                     </form> */}
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)} method="post">
+                        <Toaster toastOptions={{
+                            className: '',
+                            style: {
+                                border: 'px solid white',
+                                boxShadow: '0 0 10px white',
+                                padding: '16px',
+                                color: 'white',
+                                background: 'black',
+
+                            },
+                            iconTheme: {
+                                primary: 'white',
+                                secondary: 'black',
+                            },
+                        }} />
+                        <div className="-space-y-px rounded-md shadow-sm">
+                            <div>
+                                <Label htmlFor="name">Full Name</Label>
+                                <Input
+
+                                    id="name"
+
+                                    placeholder="John Doe"
+                                    required
+                                    type="text"
+                                    {...register('name', { required: true })}
+
+
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="email">Email address</Label>
+                                <Input
+                                    {...register('email', { required: true })}
+                                    id="email"
+                                    name="email"
+                                    placeholder="you@example.com"
+                                    required
+                                    type="email"
+
+
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="password">Password</Label>
+                                <Input
+                                    {...register('password', { required: true })}
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+                                    required
+                                    type="password"
+
+
+                                />
+                            </div>
+
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <Checkbox id="remember-me" name="remember-me" />
+                                <Label className="ml-2" htmlFor="remember-me">
+                                    Remember me
+                                </Label>
+                            </div>
+                            <div className="text-sm">
+                                <Link
+                                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    href="#"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            </div>
+                        </div>
+                        <div>
+                            <Button className="w-full" type="submit"  >
+                                Sign up
+                            </Button>
+
+
+                        </div>
+                        <div className="flex items-center justify-center">
+                            <GoogleSignInButton />
+                        </div>
+                    </form>
+
+
                 </div>
             </div>
         </div>

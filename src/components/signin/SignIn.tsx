@@ -1,23 +1,55 @@
-
-import React from "react";
-import CredentialsForm from "../CredentialsForm/CredentialsForm";
-import { getServerSession } from "next-auth";
-import { authConfig } from "@/app/lib/auth";
-import { redirect } from "next/navigation";
-import { getCsrfToken } from "next-auth/react";
-import {
-    CredentialsSignInButton,
-
-    GoogleSignInButton,
-} from "@/components/authButton";
+"use client";
+import React, { useState } from "react";
+import toast from "react-hot-toast";
+import { signIn } from "next-auth/react";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import {GoogleSignInButton,} from "@/components/authButton";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { Toaster } from "react-hot-toast";
-export default async function SignIn() {
-    const session = await getServerSession(authConfig);
-    console.log(session, session);
-    if (session) {
-        return redirect("/dashboard")
 
-    }
+
+
+export default function SignIn() {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const router = useRouter();
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FieldValues>({
+        defaultValues: {
+            email: '',
+            password: '',
+        },
+    });
+
+    const onSubmit: SubmitHandler<FieldValues> = (data) => {
+        setIsLoading(true);
+
+        signIn('credentials', {
+            ...data,
+            redirect: false,
+        }).then((callback) => {
+            setIsLoading(false);
+            if (callback?.ok) {
+                toast.success('Logged in successfully');
+                router.refresh();
+
+            }
+            if (callback?.error) {
+                toast.error("Invalid credentials. Please try again.");
+            }
+        })
+    };
+
+
     return (
 
         <div className="grid min-h-screen grid-cols-1 bg-black lg:grid-cols-2">
@@ -60,7 +92,62 @@ export default async function SignIn() {
                             Don't have an account? <a href="/signup" className="text-blue-500">Sign up</a>
                         </p>
                     </div>
-                    <CredentialsForm />
+                    {/*   <CredentialsForm /> */}
+                    <form className="mt-8 space-y-6" onSubmit={handleSubmit(onSubmit)} >
+
+                        <div className="-space-y-px rounded-md shadow-sm">
+                            <div>
+                                <Label htmlFor="email">Email address</Label>
+                                <Input
+                                    {...register('email', { required: true })}
+                                    id="email"
+                                    name="email"
+                                    placeholder="you@example.com"
+                                    required
+
+                                    type="email"
+                                />
+                            </div>
+                            <div>
+                                <Label htmlFor="password">Password</Label>
+                                <Input
+                                    {...register('password', { required: true })}
+                                    id="password"
+                                    name="password"
+                                    placeholder="Password"
+
+                                    required
+
+                                    type="password"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between">
+                            <div className="flex items-center">
+                                <Checkbox id="remember-me" name="remember-me" />
+                                <Label className="ml-2" htmlFor="remember-me">
+                                    Remember me
+                                </Label>
+                            </div>
+                            <div className="text-sm">
+                                <Link
+                                    className="font-medium text-indigo-600 hover:text-indigo-500"
+                                    href="#"
+                                >
+                                    Forgot your password?
+                                </Link>
+                            </div>
+                        </div>
+                        <div>
+                            <Button className="w-full" type="submit" >
+                                Sign in
+                            </Button>
+                        </div>
+                        {/* <CredentialsSignInButton /> */}
+                        {/*             <div className="flex flex-col gap-2">
+                <GoogleSignInButton />
+            </div> */}
+                    </form>
                     <GoogleSignInButton />
                 </div>
             </div>

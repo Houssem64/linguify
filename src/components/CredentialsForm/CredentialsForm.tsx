@@ -74,7 +74,7 @@ export default function CredentialsForm({ csrfToken }: CredentialsFormProps) {
         const signInResponse = await signIn("credentials", {
             redirect: false,
             email,
-            password,
+            hashedPassword: password,
         });
 
         if (signInResponse?.error) {
