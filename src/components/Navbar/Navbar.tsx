@@ -15,8 +15,8 @@ import {
     navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import ProfileAvatar from "@/components/Navbar/Avatar";
-import { authConfig } from "@/app/lib/auth";
-import { getServerSession } from "next-auth";
+
+
 
 const navItems = [
     { name: 'Home', link: '/', },

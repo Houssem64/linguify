@@ -4,87 +4,90 @@ import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card }
 import Link from "next/link"
 import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
 import { useEffect, useState } from 'react';
-import { SessionProvider, useSession } from 'next-auth/react'
+import { useUser } from '@clerk/clerk-react';
+
+
 import { motion } from 'framer-motion';
 export default function UserHome() {
-    const { data: session, status } = useSession();
-    const text = " Manage your projects, deployments, and more from one central location.".split(" ");
+    const { user } = useUser();
+
+    const text = "Manage your active tasks, metrics, and customer feedback.".split(" ");
 
     return (
-        <SessionProvider >
-            <div className="flex m-2 flex-col min-h-[100dvh]">
-                <main className="flex-1  bg-gray-100/40 dark:bg-gray-800/40">
-                    <div className="max-w-6xl w-full mx-auto grid gap-8 py-8 md:py-12 lg:py-16">
-                        <div className="flex mx-5 justify-center text-center md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr] items-center gap-6">
-                            <div className="space-y-4 w-full">
 
-                                <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
-                                    Welcome, {session?.user?.name}  </h1>
-                                <p className="text-gray-500 dark:text-gray-400 text-lg md:text-xl">
-                                    {text.map((el, i) => (
-                                        <motion.span
-                                            initial={{ opacity: 0 }}
-                                            animate={{ opacity: 1 }}
-                                            transition={{
-                                                duration: 1,
-                                                delay: i / 10
-                                            }}
-                                            key={i}
-                                        >
-                                            {el}{" "}
-                                        </motion.span>
-                                    ))}
+        <div className="flex m-2 flex-col min-h-[100dvh]">
+            <main className="flex-1  bg-gray-100/40 dark:bg-gray-800/40">
+                <div className="max-w-6xl w-full mx-auto grid gap-8 py-8 md:py-12 lg:py-16">
+                    <div className="flex mx-5 justify-center text-center md:grid-cols-[1fr_2fr] lg:grid-cols-[1fr_3fr] items-center gap-6">
+                        <div className="space-y-4 w-full">
 
-                                </p>
+                            <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
+                                Welcome  {user?.firstName}  </h1>
+                            <p className="text-gray-500 dark:text-gray-400 text-lg md:text-xl">
+                                {text.map((el, i) => (
+                                    <motion.span
+                                        initial={{ opacity: 0 }}
+                                        animate={{ opacity: 1 }}
+                                        transition={{
+                                            duration: 1,
+                                            delay: i / 10
+                                        }}
+                                        key={i}
+                                    >
+                                        {el}{" "}
+                                    </motion.span>
+                                ))}
 
-                            </div>
+                            </p>
 
                         </div>
-                        <div className="flex mt-10 flex-row justify-center md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Active Tasks</CardTitle>
-                                    <CardDescription>View and manage your active Tasks.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-4xl font-bold">12</div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Link className="font-medium" href="#">
-                                        View Tasks
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Completed Tasks</CardTitle>
-                                    <CardDescription>Track the success of your Completed Tasks.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-4xl font-bold">48</div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Link className="font-medium" href="#">
-                                        View Completed Tasks
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Translation Score</CardTitle>
-                                    <CardDescription>Dive into your  performance metrics.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-4xl font-bold">98%</div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Link className="font-medium" href="#">
-                                        View Analytics
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                        </div>
-                        {/*  <div className="flex mx-2 p-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                    </div>
+                    <div className="flex mt-10 flex-row justify-center md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Active Tasks</CardTitle>
+                                <CardDescription>View and manage your active Tasks.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-4xl font-bold">12</div>
+                            </CardContent>
+                            <CardFooter>
+                                <Link className="font-medium" href="#">
+                                    View Tasks
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Completed Tasks</CardTitle>
+                                <CardDescription>Track the success of your Completed Tasks.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-4xl font-bold">48</div>
+                            </CardContent>
+                            <CardFooter>
+                                <Link className="font-medium" href="#">
+                                    View Completed Tasks
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Translation Score</CardTitle>
+                                <CardDescription>Dive into your  performance metrics.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-4xl font-bold">98%</div>
+                            </CardContent>
+                            <CardFooter>
+                                <Link className="font-medium" href="#">
+                                    View Analytics
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                    </div>
+                    {/*  <div className="flex mx-2 p-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         <Card>
                             <CardHeader>
                                 <CardTitle>Recent Logs</CardTitle>
@@ -164,54 +167,54 @@ export default function UserHome() {
                             </CardFooter>
                         </Card>
                     </div> */}
-                        <div className="flex  mt-10  flex-row justify-center md:grid-cols-2 lg:grid-cols-3 gap-6">
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Active Projects</CardTitle>
-                                    <CardDescription>View and manage your active projects.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-4xl font-bold">12</div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Link className="font-medium" href="#">
-                                        View Projects
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Successful Deployments</CardTitle>
-                                    <CardDescription>Track the success of your deployments.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-4xl font-bold">48</div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Link className="font-medium" href="#">
-                                        View Deployments
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                            <Card>
-                                <CardHeader>
-                                    <CardTitle>Analytics</CardTitle>
-                                    <CardDescription>Dive into your app's performance metrics.</CardDescription>
-                                </CardHeader>
-                                <CardContent>
-                                    <div className="text-4xl font-bold">98%</div>
-                                </CardContent>
-                                <CardFooter>
-                                    <Link className="font-medium" href="#">
-                                        View Analytics
-                                    </Link>
-                                </CardFooter>
-                            </Card>
-                        </div>
+                    <div className="flex  mt-10  flex-row justify-center md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Active Projects</CardTitle>
+                                <CardDescription>View and manage your active projects.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-4xl font-bold">12</div>
+                            </CardContent>
+                            <CardFooter>
+                                <Link className="font-medium" href="#">
+                                    View Projects
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Successful Deployments</CardTitle>
+                                <CardDescription>Track the success of your deployments.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-4xl font-bold">48</div>
+                            </CardContent>
+                            <CardFooter>
+                                <Link className="font-medium" href="#">
+                                    View Deployments
+                                </Link>
+                            </CardFooter>
+                        </Card>
+                        <Card>
+                            <CardHeader>
+                                <CardTitle>Analytics</CardTitle>
+                                <CardDescription>Dive into your app's performance metrics.</CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <div className="text-4xl font-bold">98%</div>
+                            </CardContent>
+                            <CardFooter>
+                                <Link className="font-medium" href="#">
+                                    View Analytics
+                                </Link>
+                            </CardFooter>
+                        </Card>
                     </div>
-                </main>
-            </div>
-        </SessionProvider>
+                </div>
+            </main>
+        </div>
+
     )
 }
 
