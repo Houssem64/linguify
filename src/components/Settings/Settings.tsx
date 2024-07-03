@@ -13,16 +13,17 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 
 
 import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
-import { SessionProvider, useSession } from "next-auth/react"
+
 
 import { motion } from "framer-motion"
 import toast from "react-hot-toast"
 import Image from "next/image"
 import PaymentForm from "./PaymentForm";
+import PaymentTabs from "./PaymentTabs";
 
 export default function Component() {
 
-    const { data: session, status } = useSession();
+
     function toastError(e: any) {
         e.preventDefault();
         toast.error("failed to submit form");
@@ -42,29 +43,7 @@ export default function Component() {
                 <p className="text-gray-500 dark:text-gray-400">Manage your account settings and preferences.</p>
             </div>
             <div className="grid gap-6">
-                <Card>
-                    <CardHeader>
-                        <CardTitle>Account</CardTitle>
-                        <CardDescription>Update your personal information and account settings.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="grid gap-4">
-                        <div className="grid gap-2">
-                            <Label htmlFor="name">Name</Label>
-                            <motion.div animate={{ scale: [0, 1] }} transition={{ delay: 0.25 }}> <Input id="name" value={session?.user?.name || ''} /></motion.div>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
-                            <motion.div animate={{ scale: [0, 1] }} transition={{ delay: 0.25 }}>  <Input id="name" value={session?.user?.email || ''} /></motion.div>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
-                            <motion.div animate={{ scale: [0, 1] }} transition={{ delay: 0.25 }}> <Input defaultValue="********" id="password" type="password" /></motion.div>
-                        </div>
-                    </CardContent>
-                    <CardFooter>
-                        <Button>Save Changes</Button>
-                    </CardFooter>
-                </Card>
+
                 <Card>
                     <CardHeader>
                         <CardTitle>Withdraw</CardTitle>
@@ -190,8 +169,8 @@ export default function Component() {
                         <CardTitle>Activate Your Account</CardTitle>
                         <CardDescription> Choose your preferred payment method </CardDescription>
                     </CardHeader>
-                    <CardContent className="grid gap-4">
-                        <PaymentForm />
+                    <CardContent className="flex justify-center items-center">
+                        <PaymentTabs />
                     </CardContent>
                 </Card>
 

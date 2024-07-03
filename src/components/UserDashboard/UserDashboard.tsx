@@ -7,7 +7,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import { Skeleton } from '@mui/material';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { SessionProvider } from 'next-auth/react';
+
 import ApplyButton from './ApplyButton';
 import Settings from '../Settings/Settings';
 
@@ -29,9 +29,9 @@ const UserDashboard = () => {
                     <div className='justify-center items-center text-center' >
 
                         <div className="bg-gray-600 opacity-10 z-1">
-                            <SessionProvider >
-                                <UserHome />
-                            </SessionProvider>
+
+                            <UserHome />
+
                         </div>
                         <ApplyButton />
                     </div>
@@ -40,7 +40,7 @@ const UserDashboard = () => {
                 ) : activeLink === 'MyTasks' ? (
                     <Dashboard />
                 ) : activeLink === 'Settings' ? (
-                    <SessionProvider ><Settings /></SessionProvider>) : null}
+                    <Settings />) : null}
             </div>
         </div>
 

@@ -6,67 +6,70 @@ import ProfileAvatar from "@/components/Navbar/Avatar"
 import { useState } from "react";
 import LockIcon from '@mui/icons-material/Lock';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import { SignOutButton } from "@clerk/nextjs";
 import { Dispatch, SetStateAction } from "react";
+import { useUser } from '@clerk/clerk-react';
 interface SidebarProps {
     activeLink: string;
     setActiveLink: Dispatch<SetStateAction<string>>;
 }
-import { SessionProvider, signOut } from 'next-auth/react'
+
 
 export default function Sidebar({ activeLink, setActiveLink }: SidebarProps) {
+    const user = useUser();
     return (
         <div className="flex h-full w-full">
-            <SessionProvider>
-                <aside className=" w-72 shrink-0 border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950 lg:block">
-                    <div className="flex justify-start items-start">
-                        <ProfileAvatar />
-                        {/*  <Link href="/api/auth/signout?callbackUrl=/" className="bg-transparent border-2 border-gray-500  hover:bg-gray-700 text-white font-bold text-sm py-2 px-2 gap-2 ml-auto mr-0 rounded-lg"> Sign out </Link> */}
-                    </div>
-                    <nav className="mt-8 space-y-2">
-                        <Link
-                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                            href="#"
-                            onClick={() => setActiveLink('Home')}
-                        >
-                            <HomeIcon className="h-4 w-4" />
-                            Home
-                        </Link>
-                        <Link
-                            className="flex cursor-not-allowed  items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                            href="#" /* onClick={() => setActiveLink('Tasks')} */
-                        >
-                            <LayoutDashboardIcon className="h-4 w-4" />
-                            Jobs <span className="mr-0 ml-auto" ><LockIcon className="h-4  " /></span>
-                        </Link>
-                        <Link
-                            className="flex cursor-not-allowed items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                            href="#" /* onClick={() => setActiveLink('MyTasks')} */
-                        >
-                            <PackageIcon className="h-4 w-4" />
-                            My Tasks <span className="mr-0 ml-auto" ><LockIcon className="h-4  " /></span>
-                        </Link>
 
-                        <Link
-                            className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                            href="#" onClick={() => setActiveLink('Settings')}
-                        >
-                            <SettingsIcon className="h-4 w-4" />
-                            Settings
-                        </Link>
-                        <Link
-                            className="flex  items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
-                            /* href="/api/auth/signout?callbackUrl=/"  */ /* onClick={() => setActiveLink('MyTasks')} */
-                            href={"#"}
-                            onClick={() => signOut({ callbackUrl: '/', redirect: true })}
-                        >
-                            <ExitToAppIcon className="h-4 w-4" />
-                            Logout
-                        </Link>
-                    </nav>
-                </aside>
+            <aside className=" w-72 shrink-0 border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950 lg:block">
+                <div className="flex justify-start items-start">
+                    <ProfileAvatar />
+                    {/*  <Link href="/api/auth/signout?callbackUrl=/" className="bg-transparent border-2 border-gray-500  hover:bg-gray-700 text-white font-bold text-sm py-2 px-2 gap-2 ml-auto mr-0 rounded-lg"> Sign out </Link> */}
+                </div>
+                <nav className="mt-8 space-y-2">
+                    <Link
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                        href="#"
+                        onClick={() => setActiveLink('Home')}
+                    >
+                        <HomeIcon className="h-4 w-4" />
+                        Home
+                    </Link>
+                    <Link
+                        className="flex cursor-not-allowed  items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                        href="#" /* onClick={() => setActiveLink('Tasks')} */
+                    >
+                        <LayoutDashboardIcon className="h-4 w-4" />
+                        Jobs <span className="mr-0 ml-auto" ><LockIcon className="h-4  " /></span>
+                    </Link>
+                    <Link
+                        className="flex cursor-not-allowed items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                        href="#" /* onClick={() => setActiveLink('MyTasks')} */
+                    >
+                        <PackageIcon className="h-4 w-4" />
+                        My Tasks <span className="mr-0 ml-auto" ><LockIcon className="h-4  " /></span>
+                    </Link>
 
-            </SessionProvider>
-        </div>
+                    <Link
+                        className="flex items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                        href="#" onClick={() => setActiveLink('Settings')}
+                    >
+                        <SettingsIcon className="h-4 w-4" />
+                        Settings
+                    </Link>
+                    <Link
+                        className="flex  items-center gap-2 rounded-md px-3 py-2 text-sm font-medium text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 focus:outline-none dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-50 dark:focus:bg-gray-800 dark:focus:text-gray-50"
+                        /* href="/api/auth/signout?callbackUrl=/"  */ /* onClick={() => setActiveLink('MyTasks')} */
+                        href={"#"}
+                        onClick={() => { }}
+                    >
+                        <ExitToAppIcon className="h-4 w-4" />
+                        <SignOutButton />
+                    </Link>
+                </nav>
+            </aside>
+
+
+        </div >
     )
 }
 
