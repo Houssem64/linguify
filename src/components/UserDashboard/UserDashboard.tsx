@@ -15,12 +15,12 @@ import Settings from '../Settings/Settings';
 
 const UserDashboard = () => {
     const [activeLink, setActiveLink] = useState('Home');
-    return (<div className="flex">
-        <div className="flex w-full">
+    return (<div className="flex ">
+        <div className="flex w-full ">
             <div className="w-1/4">
                 <Sidebar activeLink={activeLink} setActiveLink={setActiveLink} />
             </div>
-            <div className="w-3/4 my-5 -translate-x-20 ">
+            <div className="w-3/4 my-5 -translate-x-20 pb-10 ">
                 {/*        <div className="items-center flex justify-center mt-4">
                     <Navbar />
 

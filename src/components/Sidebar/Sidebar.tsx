@@ -18,7 +18,7 @@ interface SidebarProps {
 export default function Sidebar({ activeLink, setActiveLink }: SidebarProps) {
     const user = useUser();
     return (
-        <div className="flex h-full w-full">
+        <div className="flex h-[150%] w-full overflow-hidden">
 
             <aside className=" w-72 shrink-0 border-r bg-white p-6 dark:border-gray-800 dark:bg-gray-950 lg:block">
                 <div className="flex justify-start items-start">
