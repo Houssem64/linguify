@@ -1,44 +1,52 @@
 import React from 'react'
 import { SignIn } from "@clerk/nextjs";
 import { Toaster } from 'react-hot-toast';
+import Link from 'next/link';
 
-export default function page() {
-  return (<div className="grid min-h-screen grid-cols-1 bg-black lg:grid-cols-2">
-    <Toaster toastOptions={{
-      className: '',
-      style: {
-        border: 'px solid white',
-        boxShadow: '0 0 10px white',
-        padding: '16px',
-        color: 'white',
-        background: 'black',
+export default function SignInPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <Toaster
+        toastOptions={{
+          style: {
+            border: '1px solid #14a800',
+            padding: '16px',
+            color: '#14a800',
+            background: 'white',
+          },
+          iconTheme: {
+            primary: '#14a800',
+            secondary: 'white',
+          },
+        }}
+      />
 
-      },
-      iconTheme: {
-        primary: 'white',
-        secondary: 'black',
-      },
-    }} />
-    <div className="relative hidden bg-gray-900 lg:block">
-      <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-800 opacity-90" />
-      <div className="relative z-10 flex h-full items-center justify-center px-12">
-        <div className="space-y-6 text-center text-white">
-          <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-            Welcome to our platform
-          </h1>
-          <p className="text-lg">
-            Discover the power of our tools and services to take your business
-            to the next level.
-          </p>
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <Link href="/" className="flex justify-center">
+          <span className="text-3xl font-bold text-[#14a800]">GoLanguify</span>
+        </Link>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Sign in to your account
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Or{' '}
+          <Link href="/signup" className="font-medium text-[#14a800] hover:text-[#14a800]/80">
+            create a new account
+          </Link>
+        </p>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <SignIn />
         </div>
       </div>
-    </div>
-    <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-      <div className="w-full max-w-md space-y-8">
-        <SignIn />
+
+      <div className="mt-8 text-center">
+        <Link href="/" className="text-sm font-medium text-gray-600 hover:text-[#14a800]">
+          Back to home
+        </Link>
       </div>
     </div>
-  </div>
-
   )
 }

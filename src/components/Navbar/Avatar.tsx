@@ -11,7 +11,7 @@ const ProfileAvatar = () => {
     return (
         <>
             <UserButton />
-            <span className="font-bold px-2 mx-2">{user?.firstName + ' ' + user?.lastName} </span>
+
         </>
     );
 }
