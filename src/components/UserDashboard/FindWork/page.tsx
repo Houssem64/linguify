@@ -84,22 +84,26 @@ export default function BrowseJobsPage() {
                                     <div className="space-y-4">
                                         <div>
                                             <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">Category</label>
-                                            <select id="category" className="w-full p-2 border rounded-md">
+                                            <select id="category" className="w-full p-2 border rounded-md bg-gray-300">
                                                 <option>All Categories</option>
                                                 {/* Add category options */}
                                             </select>
                                         </div>
                                         <div>
                                             <label htmlFor="skills" className="block text-sm font-medium text-gray-700 mb-1">Skills</label>
-                                            <input type="text" id="skills" placeholder="e.g. Spanish, Technical" className="w-full p-2 border rounded-md" />
+                                            <input type="text" id="skills" placeholder="e.g. Spanish, Technical" className="w-full p-2 text-black border rounded-md bg-gray-300" />
                                         </div>
                                         <div>
-                                            <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">Budget Range</label>
-                                            <div className="flex items-center space-x-2">
-                                                <input type="number" id="min-budget" placeholder="Min" className="w-1/2 p-2 border rounded-md" />
-                                                <span>-</span>
-                                                <input type="number" id="max-budget" placeholder="Max" className="w-1/2 p-2 border rounded-md" />
-                                            </div>
+                                            <label htmlFor="budget" className="block text-sm font-medium text-gray-700 mb-1">Budget</label>
+                                            <select id="budget" className="w-full p-2 border rounded-md bg-gray-300">
+                                                <option>Any Budget</option>
+                                                <option>$5 - $50</option>
+                                                <option>$50 - $100</option>
+                                                <option>$100 - $200</option>
+                                                <option>$200 - $500</option>
+                                                <option>$500+</option>
+                                            </select>
+
                                         </div>
                                         <button className="w-full bg-[#14a800] text-white py-2 rounded-md hover:bg-[#118f00] transition-colors">
                                             Apply Filters
