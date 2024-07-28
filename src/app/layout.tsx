@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { dark } from "@clerk/themes";
+import { neobrutalism } from "@clerk/themes";
 import {
   ClerkProvider,
   SignInButton,
@@ -26,8 +26,14 @@ export default function RootLayout({
 }>) {
   return (
     <ClerkProvider appearance={{
-      baseTheme: dark
-    }} >
+      baseTheme: neobrutalism,
+      elements: {
+        formButtonPrimary: "bg-[#14a800]/80  hover:bg-[#14a800] hover:scale-105",
+        menuButton: "text-[#14a800]",
+        profileSectionPrimaryButton: "text-[#14a800]",
+        navbarButton: "text-[#14a800]",
+      }
+    }}  >
       <html lang="en">
         <body className={inter.className}>
           <ThemeProvider

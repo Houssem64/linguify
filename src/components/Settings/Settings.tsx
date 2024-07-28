@@ -1,8 +1,5 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/fdkgSYlO3cT
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
+"use client";
+
 import { CardTitle, CardDescription, CardHeader, CardContent, CardFooter, Card } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -20,9 +17,37 @@ import toast from "react-hot-toast"
 import Image from "next/image"
 import PaymentForm from "./PaymentForm";
 import PaymentTabs from "./PaymentTabs";
+import { useEffect, useState } from "react"
 
 export default function Component() {
+    const [verified, setVerified] = useState(false);
 
+    useEffect(() => {
+        const fetchCurrentUser = async () => {
+            try {
+                const response = await fetch("/api/user", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                });
+                const data = await response.json();
+
+                if (data && data.user && data.user.publicMetadata && data.user.publicMetadata.verified === "true") {
+                    setVerified(true);
+                    // You can set a state here if needed, e.g.:
+                    // setIsVerified(true);
+                } else {
+                    console.log("User is not verified");
+                    // setIsVerified(false);
+                }
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+
+        fetchCurrentUser();
+    }, []);
 
     function toastError(e: any) {
         e.preventDefault();
@@ -42,7 +67,7 @@ export default function Component() {
                 <h1 className="text-3xl font-bold">Settings</h1>
                 <p className="text-gray-500 dark:text-gray-400">Manage your account settings and preferences.</p>
             </div>
-            <div className="grid gap-6">
+            <div className="grid gap-6 mb-36 pb-20">
 
                 <Card>
                     <CardHeader>
@@ -163,7 +188,7 @@ export default function Component() {
                         </div>
                     </CardContent>
                 </Card>
-                <Card>
+                {verified && (<Card>
 
                     <CardHeader>
                         <CardTitle>Activate Your Account</CardTitle>
@@ -173,7 +198,7 @@ export default function Component() {
                         <PaymentTabs />
                     </CardContent>
                 </Card>
-
+                )}
             </div>
         </motion.main>
     )

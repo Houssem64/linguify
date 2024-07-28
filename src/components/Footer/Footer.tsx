@@ -1,55 +1,75 @@
-/**
- * v0 by Vercel.
- * @see https://v0.dev/t/0zuDbZguQUF
- * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
- */
-import Link from "next/link"
+"use client";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { CardContent, Card } from "@/components/ui/card";
 
-export default function Component() {
+type JobCategory = "Writing & Translation" | "Design & Creative" | "Sales & Marketing" | "Admin Support";
+
+const jobCategories: JobCategory[] = [
+    "Writing & Translation",
+    "Design & Creative",
+    "Sales & Marketing",
+    "Admin Support"
+];
+
+const popularSkills: string[] = [
+    "Translation",
+    "English to Spanish",
+    "French to English",
+    "Proofreading",
+    "Editing",
+    "Content Writing",
+    "Copywriting"
+];
+
+export default function LandingPage() {
     return (
-        <footer className="bottom-0 left-0 right-0 bg-gray-100 py-6 dark:bg-gray-800">
-            <div className="container mx-auto flex items-center justify-between px-4 md:px-6">
-                <div className="flex items-center">
-                    <Link className="flex items-center" href="#">
-                        <MountainIcon className="h-6 w-6" />
-                        <span className="ml-2 text-sm font-medium">Acme Inc</span>
-                    </Link>
+
+        <footer className="bg-gray-100 py-6 border-t border-gray-200">
+            <div className="container mx-auto px-4 md:px-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div>
+                        <Link className="flex items-center" href="#">
+                            <span className="text-xl font-bold text-[#14a800]">GoLanguify</span>
+                        </Link>
+                        <p className="mt-2 text-sm text-gray-600">Connecting linguists with opportunities worldwide.</p>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold mb-2">For Clients</h3>
+                        <ul className="space-y-2">
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">How to Hire</Link></li>
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Talent Marketplace</Link></li>
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Project Catalog</Link></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold mb-2">For Translators</h3>
+                        <ul className="space-y-2">
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">How to Find Work</Link></li>
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Direct Contracts</Link></li>
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Learning Center</Link></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 className="font-semibold mb-2">Resources</h3>
+                        <ul className="space-y-2">
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Help & Support</Link></li>
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Success Stories</Link></li>
+                            <li><Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Blog</Link></li>
+                        </ul>
+                    </div>
                 </div>
-                <nav className="flex items-center space-x-4 text-sm">
-                    <Link className="hover:underline" href="#">
-                        Home
-                    </Link>
-                    <Link className="hover:underline" href="#">
-                        About
-                    </Link>
-                    <Link className="hover:underline" href="#">
-                        Services
-                    </Link>
-                    <Link className="hover:underline" href="#">
-                        Contact
-                    </Link>
-                </nav>
-                <div className="text-sm text-gray-500 dark:text-gray-400">© 2024 Linguify Inc. All rights reserved.</div>
+                <div className="mt-8 pt-4 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center">
+                    <div className="text-sm text-gray-600">© 2024 GoLanguify Inc. All rights reserved.</div>
+                    <div className="flex space-x-4 mt-4 md:mt-0">
+                        <Link className="text-sm text-gray-600 hover:text-[#14a800]" href="/terms-of-service">Terms of Service</Link>
+                        <Link className="text-sm text-gray-600 hover:text-[#14a800]" href="/privacy-policy">Privacy Policy</Link>
+                        <Link className="text-sm text-gray-600 hover:text-[#14a800]" href="#">Accessibility</Link>
+                    </div>
+                </div>
             </div>
         </footer>
-    )
-}
 
-function MountainIcon(props: React.SVGProps<SVGSVGElement>) {
-    return (
-        <svg
-            {...props}
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-        >
-            <path d="m8 3 4 8 5-5 5 15H2L8 3z" />
-        </svg>
     )
 }

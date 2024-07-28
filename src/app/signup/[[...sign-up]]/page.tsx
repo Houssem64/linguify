@@ -1,29 +1,36 @@
 import React from 'react'
 import { SignUp } from "@clerk/nextjs";
-export default function page() {
-  return (
-    <div className="grid min-h-screen grid-cols-1 bg-black lg:grid-cols-2">
+import Link from 'next/link';
 
-      <div className="relative hidden bg-gray-900 lg:block">
-        <div className="absolute inset-0 bg-gradient-to-r from-gray-900 to-gray-800 opacity-90" />
-        <div className="relative z-10 flex h-full items-center justify-center px-12">
-          <div className="space-y-6 text-center text-white">
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">
-              Welcome to our platform
-            </h1>
-            <p className="text-lg">
-              Discover the power of our tools and services to take your business
-              to the next level.
-            </p>
-          </div>
-        </div>
+export default function SignUpPage() {
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <Link href="/" className="flex justify-center">
+          <span className="text-3xl font-bold text-[#14a800]">GoLanguify</span>
+        </Link>
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Create your account
+        </h2>
+        <p className="mt-2 text-center text-sm text-gray-600">
+          Or{' '}
+          <Link href="/signin" className="font-medium text-[#14a800] hover:text-[#14a800]/80">
+            sign in to your existing account
+          </Link>
+        </p>
       </div>
-      <div className="flex items-center justify-center px-4 py-12 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md space-y-8">
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <SignUp />
         </div>
       </div>
-    </div>
 
+      <div className="mt-8 text-center">
+        <Link href="/" className="text-sm font-medium text-gray-600 hover:text-[#14a800]">
+          Back to home
+        </Link>
+      </div>
+    </div>
   )
 }
