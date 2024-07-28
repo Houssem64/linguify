@@ -6,7 +6,10 @@ import Sidebar from "../Sidebar/Sidebar";
 import Settings from "../Settings/Settings";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
-import FindWorkPage from "../../app/dashboard/find-work/page";
+import FindWorkPage from "./FindWork/page";
+import Reports from "./Reports";
+import ProfilePage from "./profile/Profile";
+import MyJobs from "./Jobs";
 
 const UserDashboard = () => {
     const [activeLink, setActiveLink] = useState("Find Work");
@@ -27,9 +30,11 @@ const UserDashboard = () => {
                             transition={{ duration: 0.3 }}
                         >
                             {activeLink === "Find Work" && <FindWorkPage />}
-                            {activeLink === "My Jobs" && <div> jobs</div>}
-                            {activeLink === "Reports" && <div> Reports</div>}
+                            {activeLink === "My Jobs" && <MyJobs />}
+                            {activeLink === "Reports" && <Reports />}
                             {activeLink === "Settings" && <Settings />}
+                            {activeLink === "My Profile" && <ProfilePage />}
+
                         </motion.div>
                     </div>
                 </main>

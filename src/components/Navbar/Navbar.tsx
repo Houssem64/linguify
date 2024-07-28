@@ -14,7 +14,8 @@ import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import { Dispatch, SetStateAction } from 'react';
 import { LanguagesIcon } from "lucide-react";
 import ProfileAvatar from "./Avatar";
-
+import NotificationComponent from "../Notification";
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 interface NavbarProps {
     activeLink: string;
     setActiveLink: Dispatch<SetStateAction<string>>;
@@ -71,11 +72,22 @@ const Navbar: React.FC<NavbarProps> = ({ activeLink, setActiveLink }) => {
                                 <AssessmentIcon className="mr-1 h-5 w-5" />
                                 Reports
                             </Link>
+                            <Link
+                                href="#"
+                                onClick={() => setActiveLink('My Profile')}
+                                className={`inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium ${activeLink === 'My Profile'
+                                    ? 'border-green-500 text-gray-900'
+                                    : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                                    }`}
+                            >
+                                <AccountBoxIcon className="mr-1 h-5 w-5" />
+                                My Profile
+                            </Link>
                         </div>
                     </div>
                     <div className="hidden sm:ml-6 sm:flex sm:items-center">
                         <button className="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
-                            <NotificationsIcon className="h-6 w-6" />
+                            <NotificationComponent />
                         </button>
                         <button className="ml-3 p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
                             <MessageIcon className="h-6 w-6" />
