@@ -23,7 +23,7 @@ export default function SignInPage() {
 
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <Link href="/" className="flex justify-center">
-          <span className="text-3xl font-bold text-[#14a800]">GoLanguify</span>
+          <span className="text-3xl font-bold font-sans text-[#14a800]">GO LANGUIFY</span>
         </Link>
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Sign in to your account

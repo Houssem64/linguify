@@ -7,9 +7,12 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
-	],
+  ],
   prefix: "",
   theme: {
+    fontFamily: {
+      sans: ["system-ui", "sans-serif"],
+    },
     container: {
       center: true,
       padding: "2rem",

@@ -32,6 +32,7 @@ model User {
   verified Boolean @default(false)
   
 }
+
 model Payment {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   name     String
@@ -42,6 +43,78 @@ model Payment {
   expirationYear String
   createdAt DateTime @default(now())
   
+}
+
+model Translator {
+  id               String           @id @default(auto()) @map("_id") @db.ObjectId
+  userId           String           @unique
+  name             String
+  title            String
+  location         String
+  photo            String?
+  wordRate         Float
+  translationScore Int
+  totalEarnings    Float
+  jobsCompleted    Int
+  languages        Language[]
+  translationPairs TranslationPair[]
+  specializations  Specialization[]
+  jobs             Job[]
+  education        Education[]
+  certifications   Certification[]
+}
+
+model Language {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  level        String
+  translator   Translator @relation(fields: [translatorId], references: [id])
+  translatorId String     @db.ObjectId
+}
+
+model TranslationPair {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  from         String
+  to           String
+  translator   Translator @relation(fields: [translatorId], references: [id])
+  translatorId String     @db.ObjectId
+}
+
+model Specialization {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  translator   Translator @relation(fields: [translatorId], references: [id])
+  translatorId String     @db.ObjectId
+}
+
+model Job {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  title        String
+  client       String
+  rating       Int
+  review       String
+  wordCount    Int
+  completedDate String
+  translator   Translator @relation(fields: [translatorId], references: [id])
+  translatorId String     @db.ObjectId
+}
+
+model Education {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  degree       String
+  institution  String
+  year         Int
+  translator   Translator @relation(fields: [translatorId], references: [id])
+  translatorId String     @db.ObjectId
+}
+
+model Certification {
+  id           String     @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  institution  String
+  year         Int
+  translator   Translator @relation(fields: [translatorId], references: [id])
+  translatorId String     @db.ObjectId
 }
 
 
